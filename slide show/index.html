@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slideshow</title>
+<style>
+  .slideshow-container {
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+  }
+  
+  .slide {
+    display: none;
+  }
+  
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .start-stop-btn {
+    left: 0;
+  }
+  
+  .prev {
+    left: 50px;
+  }
+  
+  .next {
+    right: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="slideshow-container">
+  <div class="slide">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBkz2kjdQjM6DX7mLSYMtBrQMF_wRCFb-3cxwI5rPg1A&s" alt="Slide 1">
+  </div>
+  <div class="slide">
+    <img src="https://5.imimg.com/data5/SELLER/Default/2023/4/299765792/GM/GW/BT/6158633/50-inch-smart-android-led-tv-500x500.jpg" alt="Slide 2">
+  </div>
+  <!-- Add more slides here -->
+  
+  <button class="start-stop-btn" onclick="toggleSlideshow()">Start Slideshow</button>
+  <button class="prev" onclick="prevSlide()">Previous</button>
+  <button class="next" onclick="nextSlide()">Next</button>
+</div>
+
+<script>
+let slideIndex = 0;
+let slides;
+let timer;
+
+// Function to start or stop the slideshow
+function toggleSlideshow() {
+  const btn = document.querySelector('.start-stop-btn');
+  if (btn.textContent === 'Start Slideshow') {
+    btn.textContent = 'Stop Slideshow';
+    startSlideshow();
+  } else {
+    btn.textContent = 'Start Slideshow';
+    stopSlideshow();
+  }
+}
+
+// Function to start the slideshow
+function startSlideshow() {
+  stopSlideshow(); // Stop any running slideshow to avoid duplicates
+  timer = setInterval(nextSlide, 2000); // Change slide every 2 seconds
+}
+
+// Function to stop the slideshow
+function stopSlideshow() {
+  clearInterval(timer);
+}
+
+// Function to show the next slide
+function nextSlide() {
+  stopSlideshow();
+  slideIndex++;
+  showSlide(slideIndex);
+}
+
+// Function to show the previous slide
+function prevSlide() {
+  stopSlideshow();
+  slideIndex--;
+  showSlide(slideIndex);
+}
+
+// Function to display the slide with given index
+function showSlide(index) {
+  slides = document.querySelectorAll('.slide');
+  if (index >= slides.length) slideIndex = 0;
+  if (index < 0) slideIndex = slides.length - 1;
+  slides.forEach((slide) => {
+    slide.style.display = 'none';
+  });
+  slides[slideIndex].style.display = 'block';
+}
+
+// Call startSlideshow to start the slideshow initially
+startSlideshow();
+</script>
+
+</body>
+</html>
